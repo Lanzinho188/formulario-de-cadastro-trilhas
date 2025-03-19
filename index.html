@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Fórmulario Trilhas</title>
+   <link rel="shortcut icon" href=".//assets/images/icon_form.png" type="image/x-icon">
+   <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="container__visual">
+            <div class="container__visual__cabecalho">
+                <img src=".//assets/images/logo_trilhas.png" alt="Logo do programa Trilhas Inova">     
+            </div>
+    
+            <div class="container__visual__ilustracao">
+                <img src=".//assets/images/ilustracao.png" alt="Ilustração de um garoto estudando">
+            </div>
+        </div>
+
+        <div class="container__form">
+            <h2>Formulário de inscrição</h2>
+
+            <form id="formulario">
+                <div class="input-group">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome" required autofocus>
+                </div>
+
+                <div class="input-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" placeholder="xxx.xxx.xxx-xx" required>
+                </div> 
+                
+                <div class="input-group">
+                    <label for="dataDeNascimento">Data de Nascimento</label>
+                    <input type="date" id="dataDeNascimento">
+                </div>
+                
+                <div class="input-group">
+                    <label for="sexo">Sexo</label>
+                    <select id="sexo" class="dropDown">
+                        <option selected disabled hidden>Selecione seu sexo</option>
+                        <option value="feminino">Feminino</option>
+                        <option value="masculino">Masculino</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="cep">CEP</label>
+                    <input type="text" id="cep" placeholder="xxxxx-xxx" required>
+                </div> 
+
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="seu.email@gmail.com" required>
+                </div> 
+
+                <div class="input-group">
+                    <label for="telefone">Telefone de contato</label>
+                    <input type="tel" id="telefone" placeholder="(xx)xxxxx-xxxx" required>
+                </div> 
+                
+                <div class="input-group">
+                    <label for="trilha">Trilhas de aprendizagem</label>
+                    <select id="trilha" class="dropDown" required>
+                        <option selected disabled hidden>Selecione uma Trilha</option>
+                        <option value="programacaoFrontEnd">Programação Front-end</option>
+                        <option value="programacaoBackEnd">Programação Back-end</option>
+                        <option value="programacaoJogos">Programação de Jogos</option>
+                        <option value="designExperiencia"> Design e Experiência</option>
+                        <option value="cienciaDeDados">Ciência de Dados</option>
+                    </select>
+                </div> 
+                
+                <div class="input-group">
+                    <button type="submit">Fazer Inscrição</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
