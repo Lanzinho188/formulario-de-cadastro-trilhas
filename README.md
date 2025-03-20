@@ -31,6 +31,9 @@ Formulário de inscrição para o programa **Trilhas Inova**, desenvolvido para 
 # 🎨 Figma do Projeto
 [Acesse o figma do projeto](https://www.figma.com/design/vImaUUHTU0IkZOsPz3Dl0c/DESIGN-TRILHA-FORMULARIO?node-id=49-3&m=dev&t=dTNntbBOi3ssws30-1)
 
+# ☁️ Documentação em PDF do Projeto
+[Acesse a documentação oficial do projeto no drive](https://drive.google.com/drive/folders/1dOGBSClz2XOgfUqBY8SpbDoTTjde80Ss?usp=sharing)
+
 ## 🛠️ Como rodar o código
 1. Clone o repositório
 ```bash
@@ -41,4 +44,5 @@ git clone https://github.com/Lanzinho188/formulario-de-cadastro-trilhas.git
 ---
 🧑‍💻 Desenvolvido por **Raislan Ítalo**  
 📧 Contato: raislanitalo62@gmail.com  
+
 
