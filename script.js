@@ -1,3 +1,11 @@
+const formulario = document.getElementById('formulario');
+const overlayConteudo = document.querySelector('.overlay__conteudo');
+const figura = document.querySelector('.overlay__figura-imagem');
+const paragrafoOverlay = document.querySelector('.overlay__conteudo__paragrafo');
+const overlay = document.querySelector('.overlay');
+const botaoVoltar = document.getElementById('botaoVoltar');
+let enviarFormulario = false;
+
 // Função usada para validar cpf
 function validarCPF(cpf) {
     cpf = cpf.replace(/[^\d]+/g, '') // Remove todos os caracteres não numéricos
@@ -47,15 +55,33 @@ function validarCPF(cpf) {
     return true;
 }
 
-document.getElementById('formulario').addEventListener('submit', function(event) {
+formulario.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var nome = document.getElementById('nome').value;
     var cpf = document.getElementById('cpf').value;
     if (!validarCPF(cpf)) {
-        alert("O CPF inserido não é válido");
-        event.preventDefault();
-        return;
+        overlayConteudo.style.background = '#B3261E';
+        figura.setAttribute('src', '/assets/images/emoji_pensando.png');
+        paragrafoOverlay.innerHTML = 'O cpf que você informou não é válido!';
+        overlay.classList.add('show');
+        enviarFormulario = false;
+    } else {
+        overlayConteudo.style.background = '#08AEA7';
+        figura.setAttribute('src', '/assets/images/emoji_feliz.png');
+        paragrafoOverlay.innerHTML = `Parabéns, <span class="destaque__nome">${nome}</span>! Sua inscrição foi realizada com sucesso`;
+        enviarFormulario = true;
     }
 
-    alert('Inscrição realizada com sucesso');   
+    overlay.classList.add('show');
+});
+
+botaoVoltar.addEventListener('click', function() {
+    overlay.classList.remove('show');
+
+    if (enviarFormulario) {
+        formulario.submit();
+    }
 });
 
 // Função para aplicar a máscara
@@ -77,5 +103,6 @@ function adicionarMascara() {
     }
 
 }
+
 
 document.addEventListener("DOMContentLoaded", adicionarMascara);
