@@ -1,108 +1,126 @@
+// Seletores
 const formulario = document.getElementById('formulario');
-const overlayConteudo = document.querySelector('.overlay__conteudo');
-const figura = document.querySelector('.overlay__figura-imagem');
-const paragrafoOverlay = document.querySelector('.overlay__conteudo__paragrafo');
 const overlay = document.querySelector('.overlay');
+const overlayConteudo = overlay.querySelector('.overlay__conteudo');
+const figura = overlay.querySelector('.overlay__figura-imagem');
+const paragrafoOverlay = overlay.querySelector('.overlay__conteudo__paragrafo');
 const botaoVoltar = document.getElementById('botaoVoltar');
+const inputSenha = document.getElementById('senha');
+const inputDataDeNascimento = document.getElementById('dataDeNascimento');
+
 let enviarFormulario = false;
 
-// Função usada para validar cpf
+// Valida CPF
 function validarCPF(cpf) {
-    cpf = cpf.replace(/[^\d]+/g, '') // Remove todos os caracteres não numéricos
+    cpf = cpf.replace(/\D/g, '');
 
-    // Verifica se o CPF tem 11 dígitos
-    if (cpf.length != 11) {
-        return false;
-    }
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
-    // Verifica se todos os dígitos do CPF são iguais
-    if (/^(\d)\1{10}$/.test(cpf)) {
-        return false;
-    }
+    const calcularDigito = (slice, pesoInicial) => {
+        const soma = slice
+            .split('')
+            .reduce((acc, num, i) => acc + num * (pesoInicial - i), 0);
 
-    // Validação do primeiro dígito verificador
-    let soma = 0;
-    let multiplicador = 10;
+        const resto = (soma * 10) % 11;
+        return resto === 10 ? 0 : resto;
+    };
 
-    for (let i = 0; i < 9; i++) {
-        soma += parseInt(cpf.charAt(i)) * multiplicador--;
-    }
+    const digito1 = calcularDigito(cpf.slice(0, 9), 10);
+    const digito2 = calcularDigito(cpf.slice(0, 10), 11);
 
-    let resto = (soma * 10) % 11;
-    if (resto == 10 || resto == 11) {
-        resto = 0;
-    }
-    if (resto !== parseInt(cpf.charAt(9))) {
-        return false;
-    }
-
-    // Validação do segundo dígito verificador
-    soma = 0;
-    multiplicador = 11;
-    for (let i = 0; i < 10; i++) {
-        soma += parseInt(cpf.charAt(i)) * multiplicador--;
-    }
-
-    resto = (soma * 10) % 11;
-    if (resto == 10 || resto == 11) {
-        resto = 0;
-    }
-    
-    if (resto != parseInt(cpf.charAt(10))) {
-        return false;
-    }
-
-    return true;
+    return digito1 === +cpf[9] && digito2 === +cpf[10];
 }
 
-formulario.addEventListener('submit', function(event) {
+// Valida data de nascimento
+inputDataDeNascimento.addEventListener('change', () => {
+    const valor = inputDataDeNascimento.value;
+    if (!valor) return;
+
+    const nascimento = new Date(valor);
+    const hoje = new Date();
+
+    if (nascimento > hoje) {
+        alert('Insira uma data válida');
+        inputDataDeNascimento.value = '';
+        return;
+    }
+
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mes = hoje.getMonth() - nascimento.getMonth();
+
+    if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+        idade--;
+    }
+
+    if (idade < 16) {
+        alert('Você não pode participar do trilhas!\nVocê tem menos de 16 anos');
+        inputDataDeNascimento.value = '';
+        return;
+    }
+
+    console.log(`✅ Data válida! Idade: ${idade}`);
+});
+
+// Envio do formulário
+formulario.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    var nome = document.getElementById('nome').value;
-    var cpf = document.getElementById('cpf').value;
+    const nome = document.getElementById('nome').value.trim();
+    const cpf = document.getElementById('cpf').value;
+
     if (!validarCPF(cpf)) {
-        overlayConteudo.style.background = '#B3261E';
-        figura.setAttribute('src', '/assets/images/emoji_pensando.png');
-        paragrafoOverlay.innerHTML = 'O cpf que você informou não é válido!';
-        overlay.classList.add('show');
+        exibirOverlay(
+            '#B3261E',
+            '/assets/images/emoji_pensando.png',
+            'O CPF que você informou não é válido!'
+        );
         enviarFormulario = false;
     } else {
-        overlayConteudo.style.background = '#08AEA7';
-        figura.setAttribute('src', '/assets/images/emoji_feliz.png');
-        paragrafoOverlay.innerHTML = `Parabéns, <span class="destaque__nome">${nome}</span>! Sua inscrição foi realizada com sucesso`;
+        exibirOverlay(
+            '#08AEA7',
+            '/assets/images/emoji_feliz.png',
+            `Parabéns, <span class="destaque__nome">${nome}</span>! Sua inscrição foi realizada com sucesso`
+        );
         enviarFormulario = true;
     }
+});
 
+// Função para exibir overlay com conteúdo dinâmico
+function exibirOverlay(corDeFundo, imagem, mensagem) {
+    overlayConteudo.style.background = corDeFundo;
+    figura.src = imagem;
+    paragrafoOverlay.innerHTML = mensagem;
     overlay.classList.add('show');
-});
-
-botaoVoltar.addEventListener('click', function() {
-    overlay.classList.remove('show');
-
-    if (enviarFormulario) {
-        formulario.submit();
-    }
-});
-
-// Função para aplicar a máscara
-function adicionarMascara() {
-    var cpfInput = document.getElementById("cpf");
-    var telefoneInput = document.getElementById("telefone");
-    var cepInput = document.getElementById("cep");
-
-    if (cpfInput) {
-        Inputmask("999.999.999-99").mask(cpfInput);
-    }
-
-    if (telefoneInput) {
-        Inputmask("(99) 99999-9999").mask(telefoneInput);
-    }
-
-    if (cepInput) {
-        Inputmask("99999-999").mask(cepInput);
-    }
-
 }
 
+// Botão de voltar
+botaoVoltar.addEventListener('click', () => {
+    overlay.classList.remove('show');
+    if (enviarFormulario) formulario.submit();
+});
 
-document.addEventListener("DOMContentLoaded", adicionarMascara);
+// Máscaras nos inputs
+function adicionarMascara() {
+    const mascaras = [
+        { id: 'cpf', mask: '999.999.999-99' },
+        { id: 'telefone', mask: '(99) 99999-9999' },
+        { id: 'cep', mask: '99999-999' },
+        { id: 'id', mask: '99999-99' },
+    ];
+
+    mascaras.forEach(({ id, mask }) => {
+        const input = document.getElementById(id);
+        if (input) Inputmask(mask).mask(input);
+    });
+}
+
+// Inicialização geral
+document.addEventListener('DOMContentLoaded', () => {
+    adicionarMascara();
+
+    tippy('.info-icon', {
+        theme: 'light',
+        animation: 'scale',
+        placement: 'right',
+    });
+});

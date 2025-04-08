@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Fórmulario Trilhas</title>
-   <link rel="shortcut icon" href=".//assets/images/icon_form.png" type="image/png">
-   <link rel="stylesheet" href="./main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórmulario Trilhas</title>
+    <link rel="shortcut icon" href=".//assets/images/icon_form.png" type="image/png">
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light.css">
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js"></script>
+    <script src="./script.js" defer></script>
 </head>
 
 <body>
@@ -75,6 +80,18 @@
                     </select>
                 </div> 
                 
+                <div class="container__form-login">
+                    <div class="input-group">
+                        <label for="id">Id <span class="info-icon" data-tippy-content="Exemplo de id (84567-96)">ℹ️</span></label>
+                        <input type="text" id="id" placeholder="xxxxx-xx" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="senha">Senha <span class="info-icon" data-tippy-content="A senha deve ter 8 caracteres">ℹ️</span></label>
+                        <input type="password" minlength="8" maxlength="8" id="senha" placeholder="xxxxxxxx" required>
+                    </div>
+                </div>
+
                 <div class="input-group">
                     <button type="submit">Fazer Inscrição</button>
                 </div>
@@ -92,8 +109,5 @@
             <button id="botaoVoltar">Voltar</button>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js"></script>
-    <script src="./script.js"></script>
 </body>
 </html>
