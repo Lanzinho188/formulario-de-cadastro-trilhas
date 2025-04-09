@@ -12,7 +12,7 @@ let enviarFormulario = false;
 
 // Valida CPF
 function validarCPF(cpf) {
-    cpf = cpf.replace(/\D/g, '');
+    cpf = cpf.replace(/[^\d]+/g, '');
 
     if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
@@ -71,14 +71,14 @@ formulario.addEventListener('submit', (event) => {
     if (!validarCPF(cpf)) {
         exibirOverlay(
             '#B3261E',
-            '/assets/images/emoji_pensando.png',
+            '/assets/images/img_emoji_pensando.png',
             'O CPF que você informou não é válido!'
         );
         enviarFormulario = false;
     } else {
         exibirOverlay(
             '#08AEA7',
-            '/assets/images/emoji_feliz.png',
+            '/assets/images/img_emoji_feliz.png',
             `Parabéns, <span class="destaque__nome">${nome}</span>! Sua inscrição foi realizada com sucesso`
         );
         enviarFormulario = true;
