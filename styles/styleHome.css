@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Poppins', sans-serif;
+}
+
+body {
+   background: linear-gradient(45deg, #2e0b52 20%, #041832 80%);
+   background-size: 400% 400%;
+   animation: backgroundBody 20s ease infinite;
+   min-height: 100vh;
+   padding: 40px 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+@keyframes backgroundBody {
+   0% { background-position: 0% 50%; }
+   50% { background-position: 100% 0%; }
+   100% { background-position: 0% 50%; }
+}
+
+.subtitulo {
+   color: azure;
+   font-size: 28px;
+   margin-bottom: 30px;
+}
+
+.grid-cards {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   gap: 20px;
+   width: 100%;
+   max-width: 1000px;
+}
+
+.card {
+   background: #ffffff;
+   color: #2e0b52;
+   border-radius: 16px;
+   padding: 20px;
+   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+   transform: scale(1.02);
+   box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.card h3 {
+   font-size: 18px;
+   margin-bottom: 10px;
+   color: #F67841;
+}
+
+.card p {
+   font-size: 16px;
+   font-weight: 500;
+}
+
+#botaoVoltar {
+   margin-top: 30px;
+   width: 200px;
+   height: 45px;
+   background-color: #F67841;
+   color: azure;
+   font-size: 20px;
+   font-weight: 500;
+   border: none;
+   border-radius: 24px;
+   cursor: pointer;
+   transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#botaoVoltar:hover {
+   background-color: rgba(243, 171, 140, 0.9);
+   box-shadow: 0px 0px 10px rgba(245, 163, 128, 0.9);
+}
+
+@media (max-width: 768px) {
+   .grid-cards {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+   }
+
+   .card {
+      padding: 16px;
+   }
+
+   .card h3 {
+      font-size: 16px;
+   }
+
+   .card p {
+      font-size: 14px;
+   }
+
+   #botaoVoltar {
+      width: 160px;
+      font-size: 18px;
+   }
+}
+
+@media (max-width: 480px) {
+   body {
+      padding: 20px 10px;
+   }
+
+   .subtitulo {
+      font-size: 22px;
+   }
+
+   .grid-cards {
+      grid-template-columns: 1fr;
+   }
+
+   .card {
+      padding: 14px;
+   }
+
+   .card h3 {
+      font-size: 15px;
+   }
+
+   .card p {
+      font-size: 13px;
+   }
+
+   #botaoVoltar {
+      width: 140px;
+      font-size: 16px;
+   }
+}
