@@ -1,0 +1,27 @@
+{
+  "name": "formulario-de-cadastro-trilhas",
+  "version": "1.0.0",
+  "description": "![Badge do Projeto](https://img.shields.io/badge/HTML5-orange?style=for-the-badge) ![CSS](https://img.shields.io/badge/CSS3-blue?style=for-the-badge) ![JavaScript](https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raislan-italo/formulario-de-cadastro-trilhas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/raislan-italo/formulario-de-cadastro-trilhas/issues"
+  },
+  "homepage": "https://github.com/raislan-italo/formulario-de-cadastro-trilhas#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  }
+}
