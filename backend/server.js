@@ -58,6 +58,28 @@ app.post('/usuarios', (req, res) => {
    });
 });
 
+// Rota POST para fazer login
+app.post('/login', (req, res) => {
+   const {id, senha} = req.body;
+
+   // Verifica se o ID e a senha existem no banco
+   const comandoSql = 'SELECT * FROM usuarios WHERE id = ? AND senha = ?';
+
+   db.get(comandoSql, [id, senha], (err, row) => {
+      if (err) {
+         return res.status(500).json({ message: 'Erro no servidor' });
+      }
+
+      // Se não encontrou nenhum usuário
+      if (!row) {
+         return res.status(401).json({ message: 'ID ou senha incorretos' })
+      }
+
+      // Se encontrou, o login foi bem-sucedido
+      res.status(200).json({ message: 'Login realizado com sucesso!' });
+   });
+});
+
 // Rota GET para listar todos os usuários cadastrados
 app.get('/usuarios', (req, res) => {
    db.all('SELECT * FROM usuarios', [], (err, rows) => {
