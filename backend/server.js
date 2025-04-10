@@ -68,7 +68,7 @@ app.get('/usuarios', (req, res) => {
    });
 });
 
-// Rota GET par buscar um usuário específico pelo id
+// Rota GET para buscar um usuário específico pelo id
 app.get('/usuarios/:id', (req, res) => {
    const id = req.params.id;  // Pega o valor que veio da URL
 
@@ -88,6 +88,29 @@ app.get('/usuarios/:id', (req, res) => {
       res.json(row);
    });
 
+});
+
+// Rota DELETE para apagar usuários pelo CPF
+app.delete('/usuarios/:cpf', (req, res) => {
+   const cpf = req.params.cpf; // Pega o cpf que veio na URL
+
+   // Comando SQL para deletar
+   const comandoSql = 'DELETE FROM usuarios WHERE cpf = ?';
+
+   // Excecuta o comando de deletar 
+   db.run(comandoSql, [cpf], function(err) {
+      if (err) {
+         return res.status(500).json({ error: err.message });
+      }
+
+      // Verifica se algum registro foi apagado
+      if (this.changes === 0) {
+         return res.status(404).json({ message: 'Usuário não encontrado' });
+      }
+
+      // Sucesso!
+      res.status(200).json({ message: 'Usuário deletado com sucesso!' });
+   });
 });
 
 // Inicia o servidor
