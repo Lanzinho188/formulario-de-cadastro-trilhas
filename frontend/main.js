@@ -60,14 +60,21 @@ function validarCPF(cpf) {
 // Função usada para enviar os dados para o servidor
 function enviarDadosParaAPI(dados) {
     // Envia as informações para o seridor com a url especificada
-    fetch('http://localhost:3000/usuarios', {
+    fetch('https://formulario-de-cadastro-trilhas.onrender.com/usuarios', {
         method: 'POST', // Usado para enviar informações para o servidor
         headers: { 'Content-Type': 'application/json' },    // Informa o tipo de conteúdo para o servidor
         body: JSON.stringify(dados) // O corpo da mensagem será convertido para JSON
     })
-    .then(res => res.json())    // Quando a resposta chegar, converte em json
-    .then(data => console.log('Usuário salvo:', data))
-    .catch(err => console.error('Erro ao salvar:', err));
+    .then(response => {
+        if (response.ok) {
+            console.log('Dados enviados com sucesso!');
+        } else {
+            console.error('Erro ao enviar os dados.');
+        }
+    })
+    .catch(error => {
+        console.error('Erro na conexão com o servidor: ', error);
+    });
 }
 
 // Função usada para mostrar o overlay na tela de cadastro
@@ -137,8 +144,6 @@ function iniciarFormulario() {
 
     // Executa quando o usuário clicar em "Fazer inscrição"
     formulario.addEventListener('submit', (event) => {
-        event.preventDefault(); // Evita a atualização da página do formulário
-
         const dados = coletarDadosDoFormulario();   // Obtém os dados do formulário
         const cpfValido = validarCPF(dados.cpf);    // Verifica se o cpf é válido
 
