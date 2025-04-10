@@ -18,7 +18,7 @@ fetch(`http://localhost:3000/usuarios/${usuarioId}`)
       const dados = [
          {titulo: 'Nome Completo', valor: usuario.nome},
          {titulo: 'CPF', valor: usuario.cpf},
-         {titulo: 'Data de Nascimento', valor: usuario.nascimento},
+         {titulo: 'Data de Nascimento', valor: usuario.dataDeNascimento},
          {titulo: 'Sexo', valor: usuario.sexo},
          {titulo: 'CEP', valor: usuario.cep},
          {titulo: 'Email', valor: usuario.email},
