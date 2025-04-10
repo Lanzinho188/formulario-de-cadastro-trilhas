@@ -185,7 +185,7 @@ function iniciarFormulario() {
     tippy('.info-icon', {
         theme: 'light',
         animation: 'scale',
-        placement: 'right',
+        placement: 'top',
     });
 }
 
