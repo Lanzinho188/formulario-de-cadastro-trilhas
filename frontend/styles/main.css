@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
 
+:root {
+    --main-color: #FFF;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,34 +13,29 @@
 
 body {
     display: flex;
-    background: linear-gradient(45deg, rgba(243, 84, 28, 0.8), rgba(33, 53, 166, 1) 89%);
+    background: linear-gradient(45deg, #5b10a7 20%, #073169 80%);
     background-size: 500% 500%;
-    animation: backgroundBody 50s ease infinite;
+    animation: backgroundBody 20s ease infinite;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 0 20px;
     min-height: 100vh;
 }
 
 @keyframes backgroundBody {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 0%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 0%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {
     display: flex;
     border-radius: 16px;
+    box-shadow: 0px 0px 10px #000;
     width: 100%;
     max-width: 980px;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .container__visual {
@@ -46,6 +45,8 @@ body {
     border-radius: 16px 0 0 16px;
     flex-direction: column;
     width: 50%;
+    height: 100%;
+    flex-shrink: 0;
 }
 
 .container__visual__cabecalho {
@@ -68,13 +69,39 @@ img {
     border-radius: 0 16px 16px 0;
     padding: 16px 31px;
     width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* Estilo da scrollbar para navegadores baseados em WebKit (Chrome, Edge, Safari) */
+.container__form::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 8px;
+}
+
+/* Parte de fundo da barra */
+.container__form::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.7); /* Cor do fundo da barra */
+}
+
+/* Parte que se move (o "polegar" da barra) */
+.container__form::-webkit-scrollbar-thumb {
+    background: linear-gradient(0deg, rgba(202, 76, 3, 0.7), rgba(33, 53, 166, 0.7));
+    border-radius: 8px;
+}
+
+/* Quando passa o mouse em cima da barra */
+.container__form::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(0deg, rgba(202, 76, 3, 0.9), rgba(33, 53, 166, 0.9));
+    cursor: all-scroll;
 }
 
 .container__form h2 {
     text-align: center;
     font-size: 32px;
     font-weight: 600;
-    color: #FFF;
+    color: var(--main-color);
     margin: 20px;
 }
 
@@ -88,7 +115,7 @@ form .input-group {
 
 form .input-group label {
     display: block;
-    color: #FFF;
+    color: var(--main-color);
     font-weight: bold;
     margin-bottom: 4px;
 }
@@ -98,15 +125,16 @@ form .input-group input {
     height: 40px;
     background-color: rgba(217, 217, 217, 1);
     font-size: 1rem;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-radius: 8px;
     padding: 16px;
     color: #292524;
-    transition: all 0.5s ease;
+    transition: all 0.3s ease;
 }
 
 form .input-group input:focus, .dropDown:focus{
-    border-color: rgba(243, 84, 28, 0.81);
+    border-color: rgba(255, 80, 16, 0.733);
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7);
     outline: none;
 }
 
@@ -131,13 +159,12 @@ form .input-group button {
     margin-top: 14px;
     color: azure;
     cursor: pointer;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 500;
 }
 
 form .input-group button:hover {
-    background-color: rgba(243, 171, 140, 0.9);
-    box-shadow: 0px 0px 10px rgba(245, 163, 128, 0.9);
+    box-shadow: 0px 0px 10px rgba(247, 182, 154, 0.9);
 }
 
 .container__form-login {
@@ -148,10 +175,8 @@ form .input-group button:hover {
 .info-icon {
   margin-left: 8px;
   cursor: pointer;
-  color: #007BFF;
   font-size: 14px;
 }
-
 
 .overlay {
     display: flex;
@@ -201,7 +226,7 @@ form .input-group button:hover {
     text-align: center;
     font-size: 24px;
     font-weight: 500;
-    color: #FFF;
+    color: var(--main-color);
     width: 100%;
 }
 
@@ -245,4 +270,3 @@ form .input-group button:active {
     }
 
 }
-

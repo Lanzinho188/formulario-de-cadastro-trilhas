@@ -2,55 +2,75 @@
 let cadastro = false;
 let dadosDoFormulario = null;
 
-// Coleta os dados do formulário
+// Função usada para coletar os dados do formulário
 function coletarDadosDoFormulario() {
-    const campos = [
+    // Cria uma lista de nomes que representam os id's dos inputs do html
+    const listaDeId = [
         'id', 'nome', 'cpf', 'dataDeNascimento', 'sexo',
         'cep', 'email', 'telefone', 'trilha', 'senha'
     ];
 
-    const dados = {};
-    campos.forEach(campo => {
-        let valor = document.getElementById(campo).value;
-        if (campo === 'id') valor = valor.replace(/[^0-9]/g, '');
-        dados[campo] = valor;
-    });
-    dados.nascimento = dados.dataDeNascimento;
-    delete dados.dataDeNascimento;
+    const dados = {};   // Cria um objeto vazio
 
-    return dados;
+    // Loop que passa por cada item na lista campos
+    listaDeId.forEach(campoId => {
+        // Obtém o valor do campo pelo id
+        let valor = document.getElementById(campoId).value;
+        // Verifica se é o campo do id
+        if (campoId === 'id') {
+            valor = valor.replace(/[^0-9]/g, ''); // Remove tudo que não for número
+        }
+        dados[campoId] = valor; // Guarda o valor do campo dentro do ojeto dados
+    });
+
+    return dados;   // Retorna o objeto dados com todos os valores preenchidos
 }
 
-// Valida o CPF
+// Função usada para validar o CPF
 function validarCPF(cpf) {
-    cpf = cpf.replace(/[^\d]+/g, '');
-    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    cpf = cpf.replace(/[^\d]+/g, '');   // Rejex que remove tudo que não é número
 
+    // Verifica o tamanho do CPF e se todos os dígitos são iguais
+    // /^(\d)\1{10}$/ Rejex que detecta números repetidos
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf))
+        return false;
+
+    // Função que calcula um dígito verificador do CPF
     const calcularDigito = (slice, pesoInicial) => {
+        // Cria uma array cortado e faz uma soma acumulada
         const soma = slice.split('').reduce((acc, num, i) => acc + num * (pesoInicial - i), 0);
+
+        // Pefa o resto da operação 
         const resto = (soma * 10) % 11;
+
+        // Retorna  oresto
         return resto === 10 ? 0 : resto;
     };
 
+    // Chama a função para o primeiro dígito verificativo
     const digito1 = calcularDigito(cpf.slice(0, 9), 10);
+
+    // Chama a função para o segundo dígito verificativo
     const digito2 = calcularDigito(cpf.slice(0, 10), 11);
 
+    // Retorna o resulta para a verificação do cpf
     return digito1 === +cpf[9] && digito2 === +cpf[10];
 }
 
-// Envia os dados para o servidor
+// Função usada para enviar os dados para o servidor
 function enviarDadosParaAPI(dados) {
+    // Envia as informações para o seridor com a url especificada
     fetch('http://localhost:3000/usuarios', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dados)
+        method: 'POST', // Usado para enviar informações para o servidor
+        headers: { 'Content-Type': 'application/json' },    // Informa o tipo de conteúdo para o servidor
+        body: JSON.stringify(dados) // O corpo da mensagem será convertido para JSON
     })
-    .then(res => res.json())
+    .then(res => res.json())    // Quando a resposta chegar, converte em json
     .then(data => console.log('Usuário salvo:', data))
     .catch(err => console.error('Erro ao salvar:', err));
 }
 
-// Mostra a mensagem de sucesso ou erro
+// Função usada para mostrar o overlay na tela de cadastro
 function exibirOverlay(corDeFundo, imagem, mensagem) {
     const overlay = document.querySelector('.overlay');
     overlay.querySelector('.overlay__conteudo').style.background = corDeFundo;
@@ -59,8 +79,9 @@ function exibirOverlay(corDeFundo, imagem, mensagem) {
     overlay.classList.add('show');
 }
 
-// Aplica as máscaras nos campos
+// Função usada para aplicar as máscaras nos campos
 function adicionarMascara() {
+    // Cria uma lista com várias máscaras
     const mascaras = [
         { id: 'cpf', mask: '999.999.999-99' },
         { id: 'telefone', mask: '(99) 99999-9999' },
@@ -68,18 +89,20 @@ function adicionarMascara() {
         { id: 'id', mask: '99999-99' },
     ];
 
+    // Para cada item da lista, adiciona a máscara
     mascaras.forEach(({ id, mask }) => {
-        const input = document.getElementById(id);
-        if (input) Inputmask(mask).mask(input);
+        const input = document.getElementById(id);  // Pega o campo com o id atual
+        if (input) Inputmask(mask).mask(input); // Verifica se o campo existe
     });
 }
 
-// Verifica se a pessoa tem 16 anos ou mais
+// Função usada para validar a data de nascimento
 function validarDataDeNascimento() {
     const input = document.getElementById('dataDeNascimento');
     const nascimento = new Date(input.value);
     const hoje = new Date();
 
+    // Verifica se o usuário veio do futuro, maior que a data atual
     if (nascimento > hoje) {
         alert('Insira uma data válida');
         input.value = '';
@@ -88,8 +111,12 @@ function validarDataDeNascimento() {
 
     let idade = hoje.getFullYear() - nascimento.getFullYear();
     const mes = hoje.getMonth() - nascimento.getMonth();
+    console.log(`Mes: ${mes}, idade: ${idade}`);
+
+    // Verifica se o usuário já fez aniversário
     if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) idade--;
 
+    // Verifica se o usuário tem 16 ano ou mais
     if (idade < 16) {
         alert('Você precisa ter pelo menos 16 anos');
         input.value = '';
@@ -99,31 +126,35 @@ function validarDataDeNascimento() {
     return true;
 }
 
-// Inicia tudo quando a página carregar
+// Função usada para iniciar a interatividade do formulário
 function iniciarFormulario() {
     const formulario = document.getElementById('formulario');
     const botaoVoltar = document.getElementById('botaoVoltar');
+    const dataDeNascimento = document.getElementById('dataDeNascimento');
 
-    // Validação da data de nascimento
-    document.getElementById('dataDeNascimento').addEventListener('change', validarDataDeNascimento);
+    // Validação da data de nascimento em tempo real
+    dataDeNascimento.addEventListener('change', validarDataDeNascimento);
 
-    // Quando o usuário clicar em "Enviar"
+    // Executa quando o usuário clicar em "Fazer inscrição"
     formulario.addEventListener('submit', (event) => {
-        event.preventDefault();
+        event.preventDefault(); // Evita a atualização da página do formulário
 
-        const dados = coletarDadosDoFormulario();
-        const cpfValido = validarCPF(dados.cpf);
+        const dados = coletarDadosDoFormulario();   // Obtém os dados do formulário
+        const cpfValido = validarCPF(dados.cpf);    // Verifica se o cpf é válido
 
+        // Se o cpf não for válido
         if (!cpfValido) {
+            // Exibe a pop-up de erro
             exibirOverlay(
                 '#B3261E',
-                '/assets/images/img_emoji_pensando.png',
+                './/assets/images/img_emoji_pensando.png',
                 'O CPF que você informou não é válido!'
             );
-        } else {
+        } else {    // Se o cpf for válido
+            // Exibe a pop-up de sucesso
             exibirOverlay(
                 '#08AEA7',
-                '/assets/images/img_emoji_feliz.png',
+                './/assets/images/img_emoji_feliz.png',
                 `Parabéns, <span class="destaque__nome">${dados.nome}</span>! Sua inscrição foi realizada com sucesso.`
             );
             cadastro = true;
@@ -131,15 +162,15 @@ function iniciarFormulario() {
         }
     });
 
-    // Quando o usuário fecha a mensagem
+    // Executa quando o usuário fecha a pop-up
     botaoVoltar.addEventListener('click', () => {
         document.querySelector('.overlay').classList.remove('show');
-        if (cadastro) enviarDadosParaAPI(dadosDoFormulario);
+        if (cadastro) enviarDadosParaAPI(dadosDoFormulario);    // Verifica se pode enviar os dados
     });
 
-    adicionarMascara();
+    adicionarMascara(); // Chama a função para adicionar as máscaras
 
-    // Tooltip dos ícones (se estiver usando ícones com balão explicativo)
+    // Tooltip dos ícones com balão explicativo
     tippy('.info-icon', {
         theme: 'light',
         animation: 'scale',
@@ -147,4 +178,5 @@ function iniciarFormulario() {
     });
 }
 
+// Executa quando a página for carregada
 document.addEventListener('DOMContentLoaded', iniciarFormulario);
