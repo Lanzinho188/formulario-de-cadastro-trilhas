@@ -76,7 +76,10 @@ app.post('/login', (req, res) => {
       }
 
       // Se encontrou, o login foi bem-sucedido
-      res.status(200).json({ message: 'Login realizado com sucesso!' });
+      res.status(200).json({ 
+         message: 'Login realizado com sucesso!',
+         usuario: row
+      });
    });
 });
 
