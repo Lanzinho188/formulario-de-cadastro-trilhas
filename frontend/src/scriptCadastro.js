@@ -79,7 +79,7 @@ function enviarDadosParaAPI(dados) {
         console.error('Erro na conexão com o servidor: ', error);
     });
 
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
 }
 
 // Função usada para mostrar o overlay na tela de cadastro
