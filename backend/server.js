@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();  // Instanciando o express
-const PORT = 3000;      // Definindo a constante para a porta de escuta
+const PORT = process.env.PORT || 3000;      // Definindo a constante para a porta de escuta
 
 // Conectando com banco SQLite3
 const db = new sqlite3.Database('banco.db');
