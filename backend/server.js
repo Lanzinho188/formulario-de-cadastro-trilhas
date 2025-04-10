@@ -7,8 +7,11 @@ const cors = require("cors");
 const app = express(); // Instanciando o express
 const PORT = process.env.PORT || 3000; // Definindo a constante para a porta de escuta
 
-// Middleware
-app.use(cors()); // Libera a conexão do front-end com o back-end
+// Libera a conexão do front-end com o back-end
+app.use(cors({
+   origin: '*'
+}));
+
 app.use(bodyParser.json()); //
 
 // Conectando supabase

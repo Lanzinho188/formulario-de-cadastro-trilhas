@@ -63,7 +63,7 @@ function validarCPF(cpf) {
 // Função usada para enviar os dados para o servidor
 function enviarDadosParaAPI(dados) {
     // Envia as informações para o seridor com a url especificada
-    fetch('http://localhost:3000/usuarios', {
+    fetch('https://form-server-bygtaoz8t-lanzinho188s-projects.vercel.app/usuarios', {
         method: 'POST', // Usado para enviar informações para o servidor
         headers: { 'Content-Type': 'application/json' },    // Informa o tipo de conteúdo para o servidor
         body: JSON.stringify(dados) // O corpo da mensagem será convertido para JSON
@@ -71,6 +71,7 @@ function enviarDadosParaAPI(dados) {
     .then(response => {
         if (response.ok) {
             console.log('Dados enviados com sucesso!');
+            window.location.href = 'index.html';
         } else {
             console.error('Erro ao enviar os dados.');
         }
@@ -79,7 +80,6 @@ function enviarDadosParaAPI(dados) {
         console.error('Erro na conexão com o servidor: ', error);
     });
 
-    window.location.href = 'index.html';
 }
 
 // Função usada para mostrar o overlay na tela de cadastro

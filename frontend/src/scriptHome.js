@@ -9,7 +9,7 @@ if (!usuarioId) {
 }
 
 // Busca os dados no servidor
-fetch(`http://localhost:3000/usuarios/${usuarioId}`)
+fetch(`https://form-server-bygtaoz8t-lanzinho188s-projects.vercel.app/usuarios/${usuarioId}`)
    .then(res => {
       if (!res.ok) throw new Error('Erro ao buscar o usuário');
       return res.json();
