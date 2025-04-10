@@ -20,6 +20,11 @@ function coletarDadosDoFormulario() {
         if (campoId === 'id') {
             valor = valor.replace(/[^0-9]/g, ''); // Remove tudo que não for número
         }
+
+        if (campoId === 'cpf') {
+            valor = valor.replace(/[^\d]+/g, '');
+        }
+
         dados[campoId] = valor; // Guarda o valor do campo dentro do ojeto dados
     });
 
@@ -28,8 +33,6 @@ function coletarDadosDoFormulario() {
 
 // Função usada para validar o CPF
 function validarCPF(cpf) {
-    cpf = cpf.replace(/[^\d]+/g, '');   // Rejex que remove tudo que não é número
-
     // Verifica o tamanho do CPF e se todos os dígitos são iguais
     // /^(\d)\1{10}$/ Rejex que detecta números repetidos
     if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf))
