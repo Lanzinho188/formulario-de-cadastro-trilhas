@@ -43,6 +43,7 @@ botaoLogin.addEventListener('click', () => {
    .then(res => res.json())
    .then(data => {
       if (data.message === 'Login realizado com sucesso!') {
+         localStorage.setItem('usuario', data.usuario.id);   // Salva o id temporariamente
          window.location.href = 'home.html';
       } else {
          alert('Usuário não encontrado');
