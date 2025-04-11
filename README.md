@@ -55,8 +55,8 @@ Tudo isso para tornar o processo de inscrição mais moderno, funcional e confi�
 🆕 Deploy do servidor usando Vercel  
 🆕 Deploy do front-end também usando Vercel  
 🆕 Estrutura de pastas reorganizada para melhor organização  
-🆕 Novos ícones de navegação em cada tela  
-
+🆕 Novos ícones de navegação em cada tela 
+🆕 Apenas usuários com mais de 16 anos podem fazer o login  
 
 ## 📂 Estrutura do projeto
 ```bash
