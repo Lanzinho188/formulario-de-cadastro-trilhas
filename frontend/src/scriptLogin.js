@@ -3,6 +3,7 @@ const botaoLogin = document.getElementById('botaoLogin');
 const botaoCadastrar = document.getElementById('botaoCadastrar');
 const campoId = document.getElementById('id');
 const campoSenha = document.getElementById('senha');
+console.log(campoSenha)
 
 // Função usada para adicionar máscara no campo do ID
 function adicionarMascara() {
