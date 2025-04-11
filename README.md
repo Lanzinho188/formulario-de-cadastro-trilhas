@@ -6,7 +6,7 @@
 ![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 
-# ℹ️ Resumo do projeto
+## ℹ️ Resumo do projeto
 
 Formulário de inscrição desenvolvido para o programa **Trilhas Inova**, com o objetivo de coletar e gerenciar os dados dos participantes de forma rápida, eficiente e segura.
 
