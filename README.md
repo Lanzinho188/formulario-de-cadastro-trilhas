@@ -34,7 +34,7 @@ Tudo isso para tornar o processo de inscrição mais moderno, funcional e confi�
 ## 🎯 Funcionalidades principais
 ☑️ Formulário interativo e responsivo  
 ☑️ Máscara para cpf, telefone e cep  
-☑️ Validação dos campos com javaScript 
+☑️ Validação dos campos com javaScript  
 ☑️ Validação do cpf com JavaScript 
 
 ## ✨ Recursos adicionados
